@@ -214,15 +214,15 @@ network:
     # This file describes the network interfaces available on your system
     # For more information, see netplan(5).
     network:
-    version: 2
-    renderer: networkd
-    ethernets:
+      version: 2
+      renderer: networkd
+      ethernets:
         $NICKNAME
-        dhcp4: no
-        dhcp6: no
-        addresses: [$IP/$CIDR]
-        gateway4: $GATEWAY
-        nameservers:
+          dhcp4: no
+          dhcp6: no
+          addresses: [$IP/$CIDR]
+          gateway4: $GATEWAY
+          nameservers:
             addresses: [$IP]" > /etc/netplan/01-netcfg.yaml
         
         
