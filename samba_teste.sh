@@ -224,26 +224,8 @@ network:
         gateway4: $GATEWAY
         nameservers:
             addresses: [$IP]" > /etc/netplan/01-netcfg.yaml
-        echo
-        echo "checking file syntax"
-
-        netplan --debug generate > /dev/null 2>&1
-
-        if [ $? -ne 0 ]
-        then
-            echo
-            echo "Error of sintax"
-            echo
-
-            exit 4
-
-        else
-            echo
-                netplan apply
-
-            echo "Done"
-        fi
-
+        
+        
     echo 
     echo "Checking internet connection"
     echo
@@ -308,5 +290,4 @@ network:
 
     echo "SAMBA ACTIVE DIRECTORY OK"
     
-    clear    
-
+    clear
