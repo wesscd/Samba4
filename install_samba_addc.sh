@@ -341,34 +341,20 @@ network:
     echo "------------------------------------"
 
     read PWSAMBA
-
-    if [ $PWSAMBA -ne 0 ]
-        then
-            echo
-            echo "Error of sintax"
-            echo
-
-            exit 4
-
-        else
-            echo
-
-                samba-tool user setpassword administrator 
-		
-		sleep 1
-		
-		$PWSAMBA
-		
-		sleep 1
-		
-		$PWSAMBA
-
-            echo "Done"
-        fi
-    	
-        FQDN=${FQDN,,}
-
-        echo "
+    
+    samba-tool user setpassword administrator
+    
+    sleep 1
+    
+    $PWSAMBA
+    
+    sleep 1
+    
+    $PWSAMBA
+    
+    FQDN=${FQDN,,}
+    
+    echo "
         [global]
             dns forwarder = 8.8.8.8
             netbios name = $NETBIOS
