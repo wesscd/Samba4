@@ -75,19 +75,19 @@ clear
     read DNS2
 
     echo "
-        # This file describes the network interfaces available on your system
-        # For more information, see netplan(5).
-        network:
-            version: 2
-            renderer: networkd
-            ethernets:
-                $NICKNAME
-                    dhcp4: no
-                    dhcp6: no
-                    addresses: [$IP/$CIDR]
-                    gateway4: $GATEWAY
-                    nameservers:
-                        addresses: [$DNS1,$DNS2]" > /etc/netplan/01-netcfg.yaml
+    # This file describes the network interfaces available on your system
+    # For more information, see netplan(5).
+    network:
+      version: 2
+      renderer: networkd
+      ethernets:
+         $NICKNAME
+              dhcp4: no
+              dhcp6: no
+              addresses: [$IP/$CIDR]
+              gateway4: $GATEWAY
+              nameservers:
+                  addresses: [$DNS1,$DNS2]" > /etc/netplan/01-netcfg.yaml
     echo
     echo "checking file syntax"
 
@@ -168,10 +168,10 @@ clear
     read FQDN
 
     echo "
-        [libdefaults]
-            default_realm = $FQDN
-            dns_lookup_realm = false
-            dns_lookup_kdc = true" > /etc/krb5.conf
+    [libdefaults]
+        default_realm = $FQDN
+        dns_lookup_realm = false
+        dns_lookup_kdc = true" > /etc/krb5.conf
 
     echo "
         +-----------------------------+
@@ -206,25 +206,25 @@ clear
     mkdir -v -m 1770 /$DIRECTORY
 
     echo "
-        [global]
-            security = ads
-            realm = $FQDN
-            workgroup = $HOSTNAME
-            idmap uid = 10000-15000
-            idmap gid = 10000-15000
-            winbind enum users = yes
-            winbind enum groups = yes
-            template homedir = /home/%D/%U
-            template shell = /bin/bash
-            client use spnego = yes
-            winbind use default domain = yes
-            restrict anonymous = 2
-            winbind refresh tickets = yes
+    [global]
+    security = ads
+    realm = $FQDN
+    workgroup = $HOSTNAME
+    idmap uid = 10000-15000
+    idmap gid = 10000-15000
+    winbind enum users = yes
+    winbind enum groups = yes
+    template homedir = /home/%D/%U
+    template shell = /bin/bash
+    client use spnego = yes
+    winbind use default domain = yes
+    restrict anonymous = 2
+    winbind refresh tickets = yes
 
-        [$DIRECTORY]
-            writeable = yes
-            path = /$DIRECTORY
-            read only = no" > /etc/samba/smb.conf
+    [$DIRECTORY]
+    writeable = yes
+    path = /$DIRECTORY
+    read only = no" > /etc/samba/smb.conf
 
      echo "
     127.0.0.0 localhost
@@ -233,18 +233,28 @@ clear
     echo "
     $HOSTNAME" > /etc/hostname
 
+    systemctl enable smbd.service nmbd.service
+    
+    sleep 2
+
     systemctl start smbd.service nmbd.service
 
     sleep 2
+    
+    systemctl enable winbind.service
+    
+    sleep 2
+    
+    systemctl start winbindservice
 
     clear
 
     echo "
-        +------------------------------------+
-        |       SAMBA SERVICE INSTALLED      |
-        |                                    |
-        |     \ \ $FQDN \ $DIRECTORY         |    
-        +------------------------------------+
-        "
+    +------------------------------------+
+    |       SAMBA SERVICE INSTALLED      |
+    |                                    |
+    |     \ \ $FQDN \ $DIRECTORY         |    
+    +------------------------------------+
+    "
 
 # \\FS-SERVER.INTRA\storage\files\unity\users-profile\sector\%USERNAME%\Desktop\
