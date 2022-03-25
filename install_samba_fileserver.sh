@@ -125,8 +125,7 @@ clear
 
     sleep 2
 
-    echo 
-        "
+    echo "
         +---------------------------------+
         |      Adjusting date and time    |    
         +---------------------------------+
@@ -146,8 +145,7 @@ clear
 
     clear
 
-    echo 
-        "
+    echo "
         +----------------------------------------------------+
         |      Starting installation of SAMBA4 & KERBEROS    |    
         +----------------------------------------------------+
@@ -159,8 +157,7 @@ clear
 
     apt install krb5-user libnss-winbind libwbclient0 -y
 
-    echo
-        "
+    echo "
         +---------------------------------+
         |         Input FQDN Company      |    
         +---------------------------------+
@@ -170,15 +167,13 @@ clear
     
     read FQDN
 
-    echo
-        "
+    echo "
         [libdefaults]
             default_realm = $FQDN
             dns_lookup_realm = false
             dns_lookup_kdc = true" > /etc/krb5.conf
 
-    echo
-        "
+    echo "
         +-----------------------------+
         |         Input hostname      |    
         +-----------------------------+
@@ -188,8 +183,7 @@ clear
     
     read HOSTNAME
 
-     echo
-        "
+     echo "
         +--------------------------+
         |       Input NetBIOS      |    
         +--------------------------+
@@ -199,8 +193,7 @@ clear
     
     read NETBIOS
 
-     echo
-        "
+     echo "
         +------------------------------+
         |       Input folder name      |    
         +------------------------------+
@@ -212,8 +205,7 @@ clear
 
     mkdir -v -m 1770 /$DIRECTORY
 
-    echo
-        "
+    echo "
         [global]
             security = ads
             realm = $FQDN
@@ -247,8 +239,7 @@ clear
 
     clear
 
-    echo
-        "
+    echo "
         +------------------------------------+
         |       SAMBA SERVICE INSTALLED      |
         |                                    |
