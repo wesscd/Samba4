@@ -11,21 +11,20 @@ dir_unpack_samba="samba-4.14.7"
 
 clear
 
-    # CONS
-    NICKNAME=$(ip address show | grep -w 2 | awk '{print $2}')
+# CONS
+NICKNAME=$(ip address show | grep -w 2 | awk '{print $2}')
 
-    if [ $USER != 'root' ]
+if [ $USER != 'root' ]
     then
         echo "------------------------------------"
         echo "You need privileges of administrator"
         echo "------------------------------------"
 
-        exit 1
-    fi 
+   exit 1
+fi 
 
-    which apt > /dev/null 2>&1
-
-    if [ $? -ne 0 ]
+which apt > /dev/null 2>&1
+if [ $? -ne 0 ]
     then
         echo "------------------------------------------"
         echo "Your OS is not compatible with this script"
@@ -33,9 +32,8 @@ clear
         echo
 
         exit 2
-    fi
-
-    if [ ! -d /etc/netplan/original ]
+fi
+if [ ! -d /etc/netplan/original ]
     then
         mkdir -p /etc/netplan/original
         mv /etc/netplan/*.yaml /etc/netplan/original || mv /etc/netplan/*.yml /etc/netplan/original
@@ -64,15 +62,14 @@ clear
     echo 
 
     read CIDR
-
+    
     if [ $CIDR -gt 32 -o $CIDR -lt 0 ]
-    then
-        echo
-        echo "------------------------------------"
-        echo "Prefix out of range"
-        echo "------------------------------------"
-        echo
-
+    	then
+		echo
+		echo "------------------------------------"
+		echo "Prefix out of range"
+		echo "------------------------------------"
+		echo
         exit 3
     fi
 
@@ -148,6 +145,16 @@ network:
     networkctl status
 
     sleep 2
+    
+    echo "------------------------------------"
+    echo "------------------------------------"
+    echo "------ UPDATING REPOSITORIES -------"
+    echo "------------------------------------"
+    echo "------------------------------------"
+    
+    apt update && apt upgrade -y
+    
+    sleep 10
 
     echo "------------------------------------"
     echo "------------------------------------"
@@ -169,7 +176,7 @@ network:
 
     service ntp start
 
-    sleep 2
+    sleep 5
 
     clear
 
@@ -181,10 +188,12 @@ network:
     echo "----------------------------------------"
     
     apt-get install wget acl attr autoconf bind9utils bison build-essential debhelper dnsutils docbook-xml docbook-xsl flex gdb libjansson-dev krb5-user libacl1-dev libaio-dev libarchive-dev libattr1-dev libblkid-dev libbsd-dev libcap-dev libcups2-dev libgnutls28-dev libgpgme-dev libjson-perl libldap2-dev libncurses5-dev libpam0g-dev libparse-yapp-perl libpopt-dev libreadline-dev nettle-dev perl pkg-config python-all-dev python2-dbg python-dev-is-python2 python3-dnspython python3-gpg python3-markdown python3-dev xsltproc zlib1g-dev liblmdb-dev lmdb-utils libsystemd-dev perl-modules-5.30 libdbus-1-dev libtasn1-bin -y 
-
-    apt-get -y autoremove 
-	apt-get -y autoclean 
-	apt-get -y clean 
+    
+    sleep 2
+    
+    apt-get -y autoremove
+    apt-get -y autoclean
+    apt-get -y clean 
 
     sleep 2
 
@@ -197,8 +206,12 @@ network:
     cd /usr/src/
 
     wget -c $link_pack_samba
+    
+    sleep 2
 
     tar -xf $pack_samba
+    
+    sleep 10
 
     cd $dir_unpack_samba
 
@@ -208,7 +221,7 @@ network:
 
     ./configure --with-systemd --prefix=/usr/local/samba --enable-fhs
 
-    sleep 2
+    sleep 30
 
     clear
 
@@ -218,7 +231,7 @@ network:
 
     make && make install
 
-    sleep 2
+    sleep 10
 
     clear
 
@@ -240,7 +253,7 @@ network:
 
     systemctl enable samba-ad-dc.service
 
-    sleep 2
+    sleep 10
 
     clear
 
