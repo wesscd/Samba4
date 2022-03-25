@@ -142,7 +142,7 @@ network:
     echo "------------------------------------"
     echo
 
-    networkctl status
+    #networkctl status
 
     sleep 2
     
@@ -308,6 +308,7 @@ network:
     echo "------------------------------------"
     echo "Input NetBIOS"
     echo "Ex.: addc01"
+    echo "hostname must not to be equal HOSTNAME"
     echo "------------------------------------"
 
     read NETBIOS
@@ -315,6 +316,7 @@ network:
     echo "------------------------------------"
     echo "Input hostname"
     echo "Ex.: serveraddc"
+    echo "hostname must not to be equal NetBIOS"
     echo "------------------------------------"
 
     read HOSTNAME
@@ -327,6 +329,8 @@ network:
     $HOSTNAME" > /etc/hostname
 
     samba-tool domain provision --use-rfc2307 --domain=$NETBIOS --realm=$FQDN
+	
+    rm /etc/krb5.conf
 
     cp -bv /usr/local/samba/var/lib/samba/private/krb5.conf /etc/krb5.conf
 
@@ -349,7 +353,15 @@ network:
         else
             echo
 
-                samba-tool user setpassword administrator $PWSAMBA
+                samba-tool user setpassword administrator 
+		
+		sleep 1
+		
+		$PWSAMBA
+		
+		sleep 1
+		
+		$PWSAMBA
 
             echo "Done"
         fi
@@ -373,7 +385,7 @@ network:
         [sysvol]
             path = /usr/local/samba/var/lib/samba/sysvol
             read only = No
-        "
+        " > /usr/local/samba/etc/samba/smb.conf
 
     systemctl start samba-ad-dc.service
 
