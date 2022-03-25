@@ -121,7 +121,7 @@ clear
     echo "IP ADDRESS CONFIGURED"
     echo
 
-    networkctl status
+    #networkctl status
 
     sleep 2
 
