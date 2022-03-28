@@ -185,10 +185,10 @@ clear
     read HOSTNAME
 
      echo "
-        +--------------------------+
-        |       Input NetBIOS      |    
-        |      IS ONLY PREFIX      |
-        +--------------------------+
+        +-------------------------------------------+
+        |       Input NetBIOS Active Directory      |    
+        |                IS ONLY PREFIX             |
+        +-------------------------------------------+
         Ex.: addc01
         "
     echo
