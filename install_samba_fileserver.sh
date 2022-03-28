@@ -195,7 +195,8 @@ clear
 
      echo "
         +------------------------------+
-        |       Input folder name      |    
+        |       Input folder name      |
+        |      without / ONLY NAME     |
         +------------------------------+
         Ex.: FILES
         "
@@ -228,10 +229,12 @@ clear
 
      echo "
     127.0.0.0 localhost
-    $IP $FQDN $HOSTNAME" > /etc/hosts
-
+    $IP $FQDN $NETBIOS" > /etc/hosts
+    
     echo "
     $HOSTNAME" > /etc/hostname
+    
+    chgrp -v "$NETBIOS\domain users" /$DIRECTORY
 
     systemctl enable smbd.service nmbd.service
     
