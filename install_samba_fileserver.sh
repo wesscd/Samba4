@@ -159,7 +159,8 @@ clear
 
     echo "
         +---------------------------------+
-        |         Input FQDN Company      |    
+        |         Input FQDN ADDC         | 
+        |       company more prefix       | 
         +---------------------------------+
         Ex.: addc01.intra
         "
@@ -186,6 +187,7 @@ clear
      echo "
         +--------------------------+
         |       Input NetBIOS      |    
+        |      IS ONLY PREFIX      |
         +--------------------------+
         Ex.: addc01
         "
@@ -229,7 +231,7 @@ clear
 
      echo "
     127.0.0.0 localhost
-    $IP $FQDN $NETBIOS" > /etc/hosts
+    $IP $FQDN $HOSTNAME" > /etc/hosts
     
     echo "
     $HOSTNAME" > /etc/hostname
