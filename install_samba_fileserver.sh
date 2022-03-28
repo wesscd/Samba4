@@ -209,25 +209,25 @@ clear
     mkdir -v -m 1770 /$DIRECTORY
 
     echo "
-    [global]
-    security = ads
-    realm = $FQDN
-    workgroup = $HOSTNAME
-    idmap uid = 10000-15000
-    idmap gid = 10000-15000
-    winbind enum users = yes
-    winbind enum groups = yes
-    template homedir = /home/%D/%U
-    template shell = /bin/bash
-    client use spnego = yes
-    winbind use default domain = yes
-    restrict anonymous = 2
-    winbind refresh tickets = yes
+[global]
+ security = ads
+ realm = $FQDN
+ workgroup = $NETBIOS
+ idmap uid = 10000-15000
+ idmap gid = 10000-15000
+ winbind enum users = yes
+ winbind enum groups = yes
+ template homedir = /home/%D/%U
+ template shell = /bin/bash
+ client use spnego = yes
+ winbind use default domain = yes
+ restrict anonymous = 2
+ winbind refresh tickets = yes
 
-    [$DIRECTORY]
-    writeable = yes
-    path = /$DIRECTORY
-    read only = no" > /etc/samba/smb.conf
+[$DIRECTORY]
+ writeable = yes
+ path = /$DIRECTORY
+ read only = no" > /etc/samba/smb.conf
 
      echo "
     127.0.0.0 localhost
