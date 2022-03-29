@@ -311,6 +311,9 @@ network:
     echo "Input NetBIOS"
     echo "Ex.: addc01"
     echo "hostname must not to be equal HOSTNAME"
+    echo "use FQDN without PREFIX"
+    echo "ex.: FQDN - addc01.intra"
+    echo "FQDN remove PREFIX -> addc01"
     echo "------------------------------------"
 
     read NETBIOS
@@ -337,22 +340,6 @@ network:
     cp -bv /usr/local/samba/var/lib/samba/private/krb5.conf /etc/krb5.conf
 
     sleep 2
-
-    echo "------------------------------------"
-    echo "Set Password for Samba Administrator"
-    echo "------------------------------------"
-
-    read PWSAMBA
-    
-    samba-tool user setpassword administrator
-    
-    sleep 1
-    
-    $PWSAMBA
-    
-    sleep 1
-    
-    $PWSAMBA
     
     FQDN=${FQDN,,}
     
