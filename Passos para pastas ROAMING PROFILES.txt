@@ -1,0 +1,3 @@
+1. Crie todas as pastas pelo comando "mkdir -v -m 1770 /%pasta1%/%pasta2/", SEMPRE pelo ROOT.
+2. Altere o grupo proprietario das pastas. (chgrp -v "ADDC\GRUPO" /%pasta1%/%pasta2%/
+3. Crie a GPO com o emcaminhamento de pastas.
